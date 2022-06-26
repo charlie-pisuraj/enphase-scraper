@@ -1,2 +1,2 @@
 # enphase-scraper
-Scrapes Enphase API and store in local store
+Scrapes Enphase API V4 and store in local store
