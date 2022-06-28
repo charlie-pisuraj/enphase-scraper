@@ -1,0 +1,28 @@
+name: "TOU 5-8"
+description: 'https://www.sce.com/residential/rates/Time-Of-Use-Residential-Rate-Plans'
+provider: SoCal Edison
+schedule:
+  - name: Summer Weekday Off-Peak
+    cron: '* 8-16,20-23 * 6-9 1-5'
+    price: 0.33
+  - name: Summer Weekday Peak
+    cron: '* 17-19 * 6-9 1-5'
+    price: 0.65
+  - name: Summer Weekend Off-Peak
+    cron: '* 8-16,20-23 * 6-9 0,6'
+    price: 0.33
+  - name: Summer Weekend Peak
+    cron: '* 17-19 * 6-9 0,6'
+    price: 0.49
+  - name: Winter Super Off-Peak
+    cron: '* 8-16 * 1-5,10-12 *'
+    price: 0.31
+  - name: Winter Mid Peak
+    cron: '* 17-19 * 1-5,10-12 *'
+    price: 0.54
+  - name: Winter Off-Peak Night
+    cron: '* 20-23 * 1-5,10-12 *'
+    price: 0.35
+  - name: Winter Off-Peak Morning
+    cron: '* 0-7 * 1-5,10-12 *'
+    price: 0.35
