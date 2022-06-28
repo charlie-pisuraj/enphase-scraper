@@ -150,9 +150,9 @@
       ],
       "sparkline": {
         "fillColor": "rgba(31, 118, 189, 0.18)",
-        "full": false,
+        "full": true,
         "lineColor": "rgb(31, 120, 193)",
-        "show": false,
+        "show": true,
         "ymax": null,
         "ymin": null
       },
@@ -171,7 +171,7 @@
           "hide": false,
           "intervalFactor": 1,
           "query": "SELECT\n    $timeSeries as t,\n    max(energy * schedule.price_cents/100.0)/1000.0 as price\nFROM $table\njoin schedule on MONTH(solar_production.timestamp) = schedule.months\nand DAYOFWEEK(solar_production.timestamp) = schedule.days\nand HOUR(solar_production.timestamp) = schedule.hours\n\nWHERE $timeFilter\n\nGROUP BY t\n\nORDER BY t\n",
-          "rawQuery": "SELECT\n    (intDiv(toUInt32(timestamp), 300) * 300) * 1000 as t,\n    max(energy * schedule.price_cents/100.0)/1000.0 as price\nFROM default.solar_production\njoin schedule on MONTH(solar_production.timestamp) = schedule.months\nand DAYOFWEEK(solar_production.timestamp) = schedule.days\nand HOUR(solar_production.timestamp) = schedule.hours\n\nWHERE production_date >= toDate(1655796160) AND production_date <= toDate(1656400960) AND timestamp >= toDateTime(1655796160) AND timestamp <= toDateTime(1656400960)\n\nGROUP BY t\n\nORDER BY t",
+          "rawQuery": "SELECT\n    (intDiv(toUInt32(timestamp), 30) * 30) * 1000 as t,\n    max(energy * schedule.price_cents/100.0)/1000.0 as price\nFROM default.solar_production\njoin schedule on MONTH(solar_production.timestamp) = schedule.months\nand DAYOFWEEK(solar_production.timestamp) = schedule.days\nand HOUR(solar_production.timestamp) = schedule.hours\n\nWHERE production_date >= toDate(1655708400) AND production_date <= toDate(1655794799) AND timestamp >= toDateTime(1655708400) AND timestamp <= toDateTime(1655794799)\n\nGROUP BY t\n\nORDER BY t",
           "refId": "A",
           "round": "0s",
           "skip_comments": true,
@@ -251,7 +251,7 @@
           "formattedQuery": "SELECT $timeSeries as t, count() FROM $table WHERE $timeFilter GROUP BY t ORDER BY t",
           "intervalFactor": 1,
           "query": "SELECT\n    $timeSeries as t,\n    max(devices_reporting)\nFROM $table\n\nWHERE $timeFilter\n\nGROUP BY t\n\nORDER BY t\n",
-          "rawQuery": "SELECT\n    (intDiv(toUInt32(timestamp), 1200) * 1200) * 1000 as t,\n    max(devices_reporting)\nFROM default.solar_production\n\nWHERE production_date >= toDate(1655796613) AND production_date <= toDate(1656401413) AND timestamp >= toDateTime(1655796613) AND timestamp <= toDateTime(1656401413)\n\nGROUP BY t\n\nORDER BY t",
+          "rawQuery": "SELECT\n    (intDiv(toUInt32(timestamp), 3600) * 3600) * 1000 as t,\n    max(devices_reporting)\nFROM default.solar_production\n\nWHERE production_date >= toDate(1653809478) AND production_date <= toDate(1656401478) AND timestamp >= toDateTime(1653809478) AND timestamp <= toDateTime(1656401478)\n\nGROUP BY t\n\nORDER BY t",
           "refId": "A",
           "round": "0s",
           "skip_comments": true,
@@ -602,7 +602,7 @@
       },
       "yaxes": [
         {
-          "format": "short",
+          "format": "currencyUSD",
           "label": null,
           "logBase": 1,
           "max": null,
@@ -624,6 +624,7 @@
       }
     }
   ],
+  "refresh": false,
   "schemaVersion": 22,
   "style": "dark",
   "tags": [],
@@ -631,7 +632,7 @@
     "list": []
   },
   "time": {
-    "from": "now-7d",
+    "from": "now-24h",
     "to": "now"
   },
   "timepicker": {
@@ -654,5 +655,5 @@
   "variables": {
     "list": []
   },
-  "version": 6
+  "version": 7
 }

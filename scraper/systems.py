@@ -19,15 +19,14 @@ class System:
         self.system_id = data["system_id"]
 
     def get_production(self, start_date=None):
-        today = datetime.now()
-        start_dt = today.date()
+        start_dt = datetime.now()
         if start_date:
             start_dt = datetime.strptime(start_date, '%Y-%m-%d')
         start_date_str = start_dt.strftime('%Y-%m-%d')
 
-        end_dt = (start_dt + timedelta(days=1)).date()
+        end_dt = start_dt + timedelta(days=1)
         end_date_str = end_dt.strftime('%Y-%m-%d')
-        if end_dt > today.date():
+        if end_dt.date() > datetime.now().date():
             end_date_str = None
 
         data = self.enphase.get_system_production(
@@ -40,7 +39,7 @@ class System:
 
     def store_production_data(self, data):
         rows = []
-        for item in data["intervals"]:
+        for item in data.get("intervals",[]):
             dt = datetime.fromtimestamp(item["end_at"], pytz.timezone(self.timezone))
             rows.append(
                 {
